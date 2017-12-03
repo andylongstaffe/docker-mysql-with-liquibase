@@ -6,5 +6,11 @@ This is deliberately coupled with a specific set of liquibase script so this wil
 ## Usage
 
 ```
-docker-compose -f stack.yml up
+docker-compose up
 ```
+
+## Set up
+Load all required changesets into the liquibase-updater image and reference it inside the docker-compose.
+
+## Admin interface
+A version of phpAdmin has been added which can be found at localhost:8080 (by default)
