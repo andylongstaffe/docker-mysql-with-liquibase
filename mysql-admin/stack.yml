@@ -1,0 +1,25 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+  adminer:
+    image: adminer
+    depends_on: 
+      - db
+    ports:
+      - 8080:8080
+  changeset-mgr:
+    image: liquibase-updater
+    depends_on: 
+      - db
+    environment:
+      LIQUIBASE_HOST: db
+      LIQUIBASE_DATABASE: books2?createDatabaseIfNotExist=true
+      LIQUIBASE_USERNAME: root
+      LIQUIBASE_PASSWORD: password
+    command: /bin/bash -c "./wait_for_db.sh; liquibase update" 
